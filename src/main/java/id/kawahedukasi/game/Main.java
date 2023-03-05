@@ -1,4 +1,4 @@
-package id.kawahedukasi.Game;
+package id.kawahedukasi.game;
 
 import java.util.Scanner;
 import java.util.Random;
