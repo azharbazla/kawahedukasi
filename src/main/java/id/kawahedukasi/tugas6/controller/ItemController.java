@@ -1,71 +1,45 @@
 package id.kawahedukasi.tugas6.controller;
 
 import id.kawahedukasi.tugas6.model.Item;
+import id.kawahedukasi.tugas6.service.ItemService;
 
-import javax.transaction.Transactional;
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Path("/item")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ItemController {
+    @Inject
+    ItemService itemService;
+
     @GET
-    public Response list() {
-        List<Item> items = Item.listAll();
-        return Response.ok(items).build();
+    public Response findAll(){
+        return itemService.findAll();
     }
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
-        Item item = Item.findById(id);
-        if (item == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        return Response.ok(item).build();
+        return itemService.findById(id);
     }
 
     @POST
-    @Transactional
     public Response post(Item item) {
-        item.setCreatedAt(LocalDateTime.now());
-        item.persist();
-        return Response.status(Response.Status.CREATED).entity(item).build();
+        return itemService.post(item);
     }
 
     @PUT
     @Path("/{id}")
-    @Transactional
     public Response update(@PathParam("id") Long id, Item updatedItem) {
-        Item item = Item.findById(id);
-        if (item == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        item.setName(updatedItem.getName());
-        item.setCount(updatedItem.getCount());
-        item.setPrice(updatedItem.getPrice());
-        item.setType(updatedItem.getType());
-        item.setDescription(updatedItem.getDescription());
-        item.setUpdatedAt(LocalDateTime.now());
-
-        item.persist();
-        return Response.ok(item).build();
+        return itemService.update(id, updatedItem);
     }
 
     @DELETE
     @Path("/{id}")
-    @Transactional
     public Response delete(@PathParam("id") Long id) {
-        Item item = Item.findById(id);
-        if (item == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-        item.delete();
-        return Response.noContent().build();
+        return itemService.delete(id);
     }
 }

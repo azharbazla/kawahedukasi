@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "item")
 public class Item extends PanacheEntityBase{
+
     @Id
     @SequenceGenerator(name = "itemSequence", sequenceName = "item_sequence",allocationSize = 1, initialValue = 1 )
     @GeneratedValue(generator = "itemSequence", strategy = GenerationType.SEQUENCE)
@@ -19,10 +20,10 @@ public class Item extends PanacheEntityBase{
     private String name;
 
     @Column(name = "count")
-    private String count;
+    private Double count;
 
     @Column(name = "price")
-    private String price;
+    private Double price;
 
     @Column(name = "type")
     private String type;
@@ -54,19 +55,19 @@ public class Item extends PanacheEntityBase{
         this.name = name;
     }
 
-    public String getCount() {
+    public Double getCount() {
         return count;
     }
 
-    public void setCount(String count) {
+    public void setCount(Double count) {
         this.count = count;
     }
 
-    public String getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
