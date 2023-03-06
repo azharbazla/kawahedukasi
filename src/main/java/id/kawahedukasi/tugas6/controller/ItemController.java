@@ -7,8 +7,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @Path("/item")
 @Produces(MediaType.APPLICATION_JSON)
@@ -16,50 +15,46 @@ import java.util.Map;
 public class ItemController {
     @GET
     public Response list() {
-        return Response.status(Response.Status.OK).entity(Item.findAll().list()).build();
-
+        List<Item> items = Item.listAll();
+        return Response.ok(items).build();
     }
 
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") Long id) {
         Item item = Item.findById(id);
-        return Response.status(Response.Status.OK).entity(item).build();
+        if (item == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        return Response.ok(item).build();
     }
 
     @POST
     @Transactional
-    public Response post(Map<String, Object> req) {
-        Item item = new Item();
-        item.name = req.get("name").toString();
-        item.count = req.get("email").toString();
-        item.price = req.get("price").toString();
-        item.type = req.get("type").toString();
-        item.description = req.get("description").toString();
-        item.createdAt = LocalDateTime.now();
-
+    public Response post(Item item) {
+        item.setCreatedAt(LocalDateTime.now());
         item.persist();
-        return Response.status(Response.Status.CREATED).entity(new HashMap<>()).build();
+        return Response.status(Response.Status.CREATED).entity(item).build();
     }
 
     @PUT
     @Path("/{id}")
     @Transactional
-    public Response update(@PathParam("id") Long id, Map<String, Object> req) {
+    public Response update(@PathParam("id") Long id, Item updatedItem) {
         Item item = Item.findById(id);
         if (item == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
 
-        item.name = req.get("name").toString();
-        item.count = req.get("email").toString();
-        item.price = req.get("price").toString();
-        item.type = req.get("type").toString();
-        item.description = req.get("description").toString();
-        item.updatedAt = LocalDateTime.now();
+        item.setName(updatedItem.getName());
+        item.setCount(updatedItem.getCount());
+        item.setPrice(updatedItem.getPrice());
+        item.setType(updatedItem.getType());
+        item.setDescription(updatedItem.getDescription());
+        item.setUpdatedAt(LocalDateTime.now());
 
         item.persist();
-        return Response.status(Response.Status.CREATED).entity(new HashMap<>()).build();
+        return Response.ok(item).build();
     }
 
     @DELETE
@@ -71,7 +66,6 @@ public class ItemController {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         item.delete();
-        return Response.status(Response.Status.NO_CONTENT).entity(new HashMap<>()).build();
+        return Response.noContent().build();
     }
 }
-
