@@ -32,12 +32,12 @@ public class Item extends PanacheEntityBase{
     private String description;
 
     @CreationTimestamp
-    @Column(name = "createdAt", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "createdat", nullable = false, updatable = false)
+    private LocalDateTime createdat;
 
     @UpdateTimestamp
-    @Column(name = "updateAt")
-    private LocalDateTime updatedAt;
+    @Column(name = "updatedat")
+    private LocalDateTime updatedat;
 
     public Long getId() {
         return id;
@@ -87,20 +87,20 @@ public class Item extends PanacheEntityBase{
         this.description = description;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+    public LocalDateTime getCreatedat() {
+        return createdat;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public void setCreatedat(LocalDateTime createdat) {
+        this.createdat = createdat;
     }
 
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
+    public LocalDateTime getUpdatedat() {
+        return updatedat;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setUpdatedat(LocalDateTime updatedat) {
+        this.updatedat = updatedat;
     }
 }
 
