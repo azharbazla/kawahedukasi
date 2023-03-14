@@ -27,7 +27,7 @@ public class ItemService {
 
     @Transactional
     public Response post(Item item) {
-        item.setCreatedAt(LocalDateTime.now());
+        item.setCreatedat(LocalDateTime.now());
         item.persist();
         return Response.status(Response.Status.CREATED).entity(item).build();
     }
@@ -43,7 +43,7 @@ public class ItemService {
         item.setPrice(updatedItem.getPrice());
         item.setType(updatedItem.getType());
         item.setDescription(updatedItem.getDescription());
-        item.setUpdatedAt(LocalDateTime.now());
+        item.setUpdatedat(LocalDateTime.now());
 
         item.persist();
         return Response.ok(item).build();
