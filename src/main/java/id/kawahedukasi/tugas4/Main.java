@@ -41,6 +41,10 @@ public class Main {
                 System.out.print(s + ", ");
             }
         }
+
+        ArrayList<String> test = new ArrayList<>(Arrays.asList("a", "b", "c"));
+        test.sort(Comparator.naturalOrder());
+        System.out.println(test);
     }
 }
 

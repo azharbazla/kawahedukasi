@@ -20,7 +20,7 @@ public class ScheduleService {
         logger.info("kawah Edukasi {}", LocalDateTime.now());
     }
 
-    @Scheduled(cron = "0 * * ? * *") //every minute
+    //@Scheduled(cron = "0 * * ? * *") //every minute
     public void sendEmailSchedule(){
         mailService.sendEmail("azharbazla@gmail.com");
         logger.info("Email Sent Successfully");

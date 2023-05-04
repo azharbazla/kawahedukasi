@@ -87,7 +87,7 @@ public class Main {
         else {
             System.out.println("Apakah Hari Libur? (true/false)");
             boolean isLibur = scanner.nextBoolean();
-            if (isLibur == true) {
+            if (isLibur) {
                 System.out.println(hari + " merupakan " + HARI_LIBUR);
             }
             else {
