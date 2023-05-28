@@ -15,6 +15,8 @@ public class Main {
         System.out.println("Saya akan memilih sebuah angka antara 1 dan 100.");
         System.out.println("Silakan tebak angka yang saya pilih.");
 
+        scanner.close();
+
         while (guess != secretNumber) {
             System.out.print("Tebakanmu: ");
             guess = scanner.nextInt();

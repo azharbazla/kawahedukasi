@@ -42,6 +42,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         String nama = scanner.nextLine();
         System.out.println("Selamat datang di bootcamp Kawah Edukasi, " + nama);
+
+        scanner.close();
     }
 
     static void duaVariable() {
@@ -94,6 +96,7 @@ public class Main {
                 System.out.println(hari + " merupakan " + HARI_KERJA);
             }
         }
+        scanner.close();
     }
 
     static void loopingAngka() {
